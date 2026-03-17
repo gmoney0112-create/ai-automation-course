@@ -1,0 +1,88 @@
+AI AUTOMATION COURSE - GITHUB PAGES DEPLOYMENT
+================================================
+
+STEP 1: CREATE GITHUB REPOSITORY
+---------------------------------
+1. Go to: https://github.com/new
+2. Repository name: ai-automation-course
+3. Description: "AI Automation Mastery Course - $97 Course Sales Page"
+4. Public repository (REQUIRED for GitHub Pages)
+5. DO NOT initialize with README, .gitignore, or license
+6. Click "Create repository"
+
+STEP 2: UPLOAD FILES
+--------------------
+Method A: Web Upload (Easiest)
+1. On the new repository page, click "uploading an existing file"
+2. Drag and drop all files from this folder:
+   - index.html
+   - COURSE_GUIDE.txt
+   - README.md
+3. Click "Commit changes"
+
+Method B: Git Commands
+```
+cd C:\temp\ai-course-deploy
+git init
+git add .
+git commit -m "Initial commit - AI Automation Course"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/ai-automation-course.git
+git push -u origin main
+```
+
+STEP 3: ENABLE GITHUB PAGES
+---------------------------
+1. Go to your repository on GitHub
+2. Click "Settings" tab
+3. In left sidebar, click "Pages"
+4. Under "Source", select "main" branch
+5. Click "Save"
+6. Wait 1-2 minutes for deployment
+
+STEP 4: GET YOUR LIVE URL
+-------------------------
+Your site will be live at:
+https://YOUR_USERNAME.github.io/ai-automation-course/
+
+Replace YOUR_USERNAME with your GitHub username.
+
+STEP 5: TEST THE SITE
+---------------------
+1. Visit your live URL
+2. Verify sales page loads correctly
+3. Click "Enroll Now" button
+4. Test Stripe payment flow (use test mode)
+5. Verify course access delivery
+
+STEP 6: UPDATE STRIPE PAYMENT LINK (IF NEEDED)
+-----------------------------------------------
+The current payment link in index.html is:
+https://buy.stripe.com/eVq3cx1PX9Eoet8aBx3Ru0c
+
+If you need to update to a live Stripe link:
+1. Edit index.html
+2. Find all instances of the Stripe URL
+3. Replace with your live Stripe payment link
+4. Commit and push changes
+
+STEP 7: LAUNCH!
+---------------
+Once deployed and tested:
+1. Share the live URL on social media
+2. Email your list (if you have one)
+3. Start promoting the $97 course
+4. Monitor sales and conversions
+
+TROUBLESHOOTING
+---------------
+- If site doesn't load: Wait 5 minutes, GitHub Pages takes time
+- If 404 error: Check repository is Public (not Private)
+- If styling broken: Check browser console for errors
+- If payment link broken: Verify Stripe link is correct
+
+SUPPORT
+-------
+For deployment help, contact: support@aibusinesstwin.com
+
+© 2026 AI Business Twin

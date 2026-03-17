@@ -1,0 +1,151 @@
+AI AUTOMATION MASTERY COURSE
+=============================
+
+Welcome to the AI Automation Mastery Course! This comprehensive guide will teach you how to automate 80% of your business tasks using AI.
+
+COURSE DETAILS
+--------------
+- Price: $97 (one-time payment)
+- Access: Lifetime
+- Guarantee: 30-day money-back
+- Modules: 6 comprehensive modules
+- Support: 30 days email support + Discord community
+
+MODULE 1: AI BUSINESS TWIN FUNDAMENTALS
+----------------------------------------
+Learning Objectives:
+- Understand AI automation architecture
+- Identify automation opportunities
+- Set up basic tool stack
+
+Content:
+- Video: Introduction to AI Business Twin (5 min)
+- Architecture diagram and explanation
+- Tool stack overview
+
+Exercise:
+Document 3 repetitive tasks in your business that could be automated.
+
+Resources:
+- Process Documentation Worksheet
+- AI Tool Stack Comparison Guide
+
+MODULE 2: PROCESS IDENTIFICATION
+---------------------------------
+Learning Objectives:
+- Spot repetitive tasks worth automating
+- Calculate automation ROI
+- Prioritize automation opportunities
+
+Content:
+- Video: The 80/20 rule of automation (7 min)
+- Process identification checklist
+- ROI calculation methodology
+
+Exercise:
+Use the ROI calculator to estimate savings from automating one task.
+
+Resources:
+- ROI Calculator Spreadsheet
+- Automation Prioritization Matrix
+
+MODULE 3: TOOL STACK SETUP
+---------------------------
+Learning Objectives:
+- Set up essential AI tools
+- Configure automation platforms
+- Connect systems together
+
+Content:
+- Video: Tool stack walkthrough (10 min)
+- Step-by-step setup instructions
+- API connection guide
+
+Exercise:
+Create accounts for 2 recommended AI tools from the tool comparison guide.
+
+Resources:
+- Tool Setup Checklist
+- API Connection Guide
+
+MODULE 4: IMPLEMENTATION BLUEPRINT
+-----------------------------------
+Learning Objectives:
+- Build first automation workflow
+- Test and debug automations
+- Deploy to production
+
+Content:
+- Video: Building your first automation (15 min)
+- Implementation checklist
+- Debugging guide
+
+Exercise:
+Build your first automation using the provided template.
+
+Resources:
+- Automation Workflow Template
+- Implementation Checklist
+
+MODULE 5: TESTING & OPTIMIZATION
+---------------------------------
+Learning Objectives:
+- Test automation reliability
+- Optimize for performance
+- Monitor and maintain
+
+Content:
+- Video: Testing methodologies (8 min)
+- Testing checklist
+- Performance monitoring setup
+
+Exercise:
+Test your automation and document any issues or improvements.
+
+Resources:
+- Testing Checklist
+- Performance Monitoring Guide
+
+MODULE 6: SCALING STRATEGIES
+-----------------------------
+Learning Objectives:
+- Scale automations across business
+- Build automation team
+- Create automation culture
+
+Content:
+- Video: Scaling framework (10 min)
+- Scaling roadmap template
+- Team training plan
+
+Exercise:
+Create a scaling plan for one automation across your business.
+
+Resources:
+- Scaling Roadmap Template
+- Team Training Plan
+
+SUPPORT & COMMUNITY
+--------------------
+- Email Support: support@aibusinesstwin.com (24-hour response)
+- Discord Community: Private community for peer support
+- Office Hours: Weekly live Q&A sessions
+- Course Updates: Lifetime access to all updates
+
+NEXT STEPS
+----------
+1. Join our Discord community (link in welcome email)
+2. Complete Module 1 exercise
+3. Schedule 30 minutes daily for course work
+4. Share your progress in the community
+5. Reach out for help when needed
+
+IMPORTANT NOTES
+---------------
+- This is Version 1.0 of the course
+- All students receive lifetime updates
+- 30-day money-back guarantee applies
+- Support available for 30 days post-purchase
+
+© 2026 AI Business Twin. All rights reserved.
+Course published: March 16, 2026

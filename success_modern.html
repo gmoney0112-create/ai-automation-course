@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to AI Automation Mastery! 🎉</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --purple: #667eea;
+            --violet: #764ba2;
+            --green: #22c55e;
+            --dark: #1a1a2e;
+            --card: #ffffff;
+            --text: #333;
+            --muted: #666;
+        }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text);
+        }
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+        /* Confirmation badge */
+        .badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--green);
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 12px 24px;
+            border-radius: 50px;
+            width: fit-content;
+            margin: 0 auto 30px;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        /* Hero card */
+        .hero-card {
+            background: white;
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+            margin-bottom: 24px;
+            animation: slideUp 0.6s ease 0.1s both;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--purple), var(--violet));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 36px;
+        }
+        .hero-card h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .hero-card p {
+            font-size: 18px;
+            color: var(--muted);
+            max-width: 480px;
+            margin: 0 auto 32px;
+        }
+        /* Access box */
+        .access-box {
+            background: linear-gradient(135deg, #f0f4ff, #f8f0ff);
+            border: 2px solid var(--purple);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 28px;
+            text-align: left;
+        }
+        .access-box h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .access-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
+            gap: 12px;
+        }
+        .access-link:hover {
+            border-color: var(--purple);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+            transform: translateX(4px);
+        }
+        .access-link .link-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .access-link.link-label {
+            flex: 1;
+        }
+        .access-link .link-label strong {
+            display: block;
+            font-size: 15px;
+        }
+        .access-link .link-label span {
+            font-size: 13px;
+            color: var(--muted);
+        }
+        .access-link .arrow {
+            color: var(--purple);
+            font-size: 18px;
+        }
+        /* Steps card */
+        .steps-card {
+            background: white;
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+            animation: slideUp 0.6s ease 0.2s both;
+        }
+        .steps-card h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 24px;
+        }
+        .step {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        .step-num {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--purple), var(--violet));
+            color: white;
+            font-weight: 800;
+            font-size: 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .step-content strong {
+            display: block;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+        .step-content span {
+            font-size: 14px;
+            color: var(--muted);
+        }
+        /* Support card */
+        .support-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px 36px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            animation: slideUp 0.6s ease 0.3s both;
+        }
+        .support-icon {
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+        .support-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+        .support-card p {
+            font-size: 14px;
+            color: var(--muted);
+        }
+        .support-card a {
+            color: var(--purple);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        /* Receipt note */
+        .receipt-note {
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin-top: 24px;
+        }
+        @media (max-width: 600px) {
+            .hero-card { padding: 36px 24px; }
+            .hero-card h1 { font-size: 28px; }
+            .steps-card { padding: 28px 24px; }
+            .support-card { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="badge">
+            ✅ Payment Confirmed
+        </div>
+        <div class="hero-card">
+            <div class="checkmark">🎉</div>
+            <h1>Welcome to AI Automation Mastery!</h1>
+            <p>Your payment was successful. You now have lifetime access to everything below. Check your email for your receipt.</p>
+            <div class="access-box">
+                <h3>📦 Your Instant Access Links</h3>
+                <a href="https://inspirebuildmotivate-my.sharepoint.com/:w:/p/jeremiah/IQA-1pQ_rNhPRry6--vNUFAmAdilzGElm9Tb9xHJXWM7DkM?e=huRFjM" class="access-link" target="_blank">
+                    <span class="link-icon">📚</span>
+                    <span class="link-label">
+                        <strong>AI Automation Mastery Course</strong>
+                        <span>6 modules • Complete course content</span>
+                    </span>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://discord.gg/coming-soon" class="access-link" target="_blank">
+                    <span class="link-icon">💬</span>
+                    <span class="link-label">
+                        <strong>Private Community (Discord)</strong>
+                        <span>Launching in 24 hours • Check email</span>
+                    </span>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://inspirebuildmotivate-my.sharepoint.com/:w:/p/jeremiah/IQA-1pQ_rNhPRry6--vNUFAmAdilzGElm9Tb9xHJXWM7DkM?e=huRFjM" class="access-link" target="_blank">
+                    <span class="link-icon">📋</span>
+                    <span class="link-label">
+                        <strong>Automation Templates & Checklists</strong>
+                        <span>Included in course document</span>
+                    </span>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+        <div class="steps-card">
+            <h2>🚀 Start Here — Your First 3 Steps</h2>
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <strong>Access the course PDF</strong>
+                    <span>Start with Module 1: AI Business Twin Fundamentals. Takes about 20 minutes.</span>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <strong>Join the Discord community</strong>
+                    <span>Community launching in 24 hours. Check your email for the invite link.</span>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <strong>Implement your first automation</strong>
+                    <span>Follow the Module 4 blueprint. Most students automate their first process within 7 days.</span>
+                </div>
+            </div>
+        </div>
+        <div class="support-card">
+            <div class="support-icon">🛟</div>
+            <div>
+                <h3>Need help? We've got you covered.</h3>
+                <p>Email us at <a href="mailto:gmoney0112@gmail.com">gmoney0112@gmail.com</a> — we respond within 24 hours. You also have 30 days of included support.</p>
+            </div>
+        </div>
+        <p class="receipt-note">A receipt has been sent to your email by Stripe. Save it for your records.</p>
+    </div>
+</body>
+</html>
