@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Automation Launch System - Done-For-You GHL Setup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #080808;
+      --white: #f5f4f0;
+      --gold: #c9a84c;
+      --gold-light: #e8c96a;
+      --gold-dim: #7a6128;
+      --surface: #111010;
+      --surface2: #191818;
+      --border: rgba(201,168,76,0.18);
+      --text-muted: #7a7670;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.35;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+    }
+
+    .nav-brand {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .nav-cta {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 10px 22px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--gold-light); }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.1s;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(42px, 7vw, 96px);
+      font-weight: 800;
+      line-height: 1.0;
+      max-width: 900px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.25s;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      max-width: 560px;
+      margin-top: 32px;
+      font-size: 18px;
+      color: var(--text-muted);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero-actions {
+      margin-top: 48px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.55s;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    .hero-note {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 40px;
+    }
+
+    section { padding: 100px 40px; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(30px, 4vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      max-width: 700px;
+    }
+
+    .section-title em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .problem {
+      background: var(--surface);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      margin-top: 60px;
+      border: 1px solid var(--border);
+    }
+
+    .problem-item {
+      padding: 40px;
+      border-right: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .problem-item:last-child { border-right: none; }
+
+    .problem-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .problem-item h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .problem-item p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .deliverables-list {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .deliverable {
+      background: var(--surface);
+      padding: 36px 40px;
+      border-left: 3px solid transparent;
+      transition: border-color 0.3s;
+      position: relative;
+    }
+
+    .deliverable:hover { border-left-color: var(--gold); }
+
+    .deliverable-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--gold-dim);
+      margin-bottom: 12px;
+    }
+
+    .deliverable h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .deliverable p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .process { background: var(--surface); }
+
+    .process-steps {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .process-step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0;
+      background: var(--surface2);
+    }
+
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--border);
+      padding: 32px 24px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .step-content {
+      padding: 32px 40px;
+    }
+
+    .step-content h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .pricing-wrapper {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      max-width: 860px;
+    }
+
+    .pricing-card {
+      background: var(--surface);
+      padding: 48px 40px;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      background: var(--surface2);
+      border-color: var(--gold);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+    }
+
+    .pricing-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .pricing-amount {
+      font-family: 'Syne', sans-serif;
+      font-size: 52px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .pricing-period {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      margin-bottom: 32px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .pricing-features li {
+      font-size: 14px;
+      color: var(--white);
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .pricing-features li::before {
+      content: '->';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 12px;
+    }
+
+    .guarantee {
+      background: var(--surface);
+    }
+
+    .guarantee-box {
+      border: 1px solid var(--border);
+      padding: 60px;
+      max-width: 760px;
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .guarantee-box::before {
+      content: '"';
+      font-family: 'Syne', sans-serif;
+      font-size: 200px;
+      font-weight: 800;
+      color: rgba(201,168,76,0.04);
+      position: absolute;
+      top: -40px;
+      left: 20px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .guarantee-box p {
+      font-size: 20px;
+      line-height: 1.7;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .guarantee-sig {
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+
+    .faq-list {
+      margin-top: 60px;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border-left: 3px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .faq-item:hover { border-left-color: var(--gold); }
+
+    .faq-q {
+      padding: 24px 32px;
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .faq-q::after {
+      content: '+';
+      color: var(--gold);
+      font-size: 22px;
+      font-weight: 300;
+      transition: transform 0.3s;
+    }
+
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      padding: 0 32px;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding: 0 32px 28px;
+    }
+
+    .final-cta {
+      text-align: center;
+      padding: 120px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .final-cta h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 800;
+      line-height: 1.05;
+      max-width: 800px;
+      margin: 0 auto 32px;
+    }
+
+    .final-cta h2 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .final-cta p {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 48px;
+    }
+
+    footer {
+      padding: 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      font-size: 12px;
+      color: var(--gold-dim);
+      text-decoration: none;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 100px 20px 60px; }
+      section { padding: 70px 20px; }
+      .divider { margin: 0 20px; }
+      .deliverables-list { grid-template-columns: 1fr; }
+      .pricing-wrapper { grid-template-columns: 1fr; }
+      .process-step { grid-template-columns: 60px 1fr; }
+      .step-num { font-size: 32px; padding: 24px 16px; }
+      .guarantee-box { padding: 40px 28px; }
+      footer { padding: 28px 20px; }
+      .problem-item { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="nav-brand">AI Automation Mastery</span>
+    <a href="#pricing" class="nav-cta">Get Started</a>
+  </nav>
+
+  <section class="hero">
+    <p class="hero-eyebrow">Done-For-You GHL Setup</p>
+    <h1>Your <em>Automated</em> Revenue Machine. Built. Live. Running.</h1>
+    <p class="hero-sub">We install a complete GoHighLevel automation system for your business - CRM, follow-up sequences, pipelines, and lead conversion - in 48 hours or less.</p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">Get Your System Built -&gt;</a>
+      <span class="hero-note">$497 setup · $197/mo · Spots limited</span>
+    </div>
+    <span class="hero-scroll">Scroll to explore</span>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="problem">
+    <p class="section-label">The Problem</p>
+    <h2 class="section-title">You're losing leads every single day because there's <em>no system</em>.</h2>
+    <div class="problem-grid">
+      <div class="problem-item">
+        <div class="problem-icon">⚡</div>
+        <h3>Slow Follow-Up</h3>
+        <p>Leads go cold in minutes. If you're not responding within 5 minutes, you're handing money to a competitor who is.</p>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">🔁</div>
+        <h3>No Nurture System</h3>
+        <p>Most leads don't buy immediately. Without a follow-up sequence, they forget you exist within 48 hours.</p>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">📊</div>
+        <h3>No Pipeline Visibility</h3>
+        <p>You can't scale what you can't see. Without a CRM, deals fall through the cracks constantly.</p>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">🕐</div>
+        <h3>Manual Everything</h3>
+        <p>You're spending hours on tasks that should take seconds. Time you should be spending closing deals.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <p class="section-label">What's Included</p>
+    <h2 class="section-title">Everything built and <em>installed</em> for you.</h2>
+    <div class="deliverables-list">
+      <div class="deliverable">
+        <p class="deliverable-num">01</p>
+        <h3>Full GHL Sub-Account Setup</h3>
+        <p>Your GoHighLevel account configured from scratch - branding, users, settings, and integrations all dialed in correctly from day one.</p>
+      </div>
+      <div class="deliverable">
+        <p class="deliverable-num">02</p>
+        <h3>30-Day Email Nurture Sequence</h3>
+        <p>8 professionally written emails deployed in a timed automation sequence. Leads enter automatically and receive consistent follow-up for 30 days.</p>
+      </div>
+      <div class="deliverable">
+        <p class="deliverable-num">03</p>
+        <h3>SMS Follow-Up System</h3>
+        <p>Strategic SMS touchpoints at high-impact moments - Day 0, Day 1, Day 7, Day 10, and Day 30 - to maximize open rates and responses.</p>
+      </div>
+      <div class="deliverable">
+        <p class="deliverable-num">04</p>
+        <h3>Sales Pipeline Configuration</h3>
+        <p>A custom pipeline with stages mapped to your sales process. Contacts move automatically based on behavior - no manual dragging required.</p>
+      </div>
+      <div class="deliverable">
+        <p class="deliverable-num">05</p>
+        <h3>AI Conversation Handler</h3>
+        <p>Auto-respond to inbound replies, qualify leads by interest, tag them, and route hot prospects to booking - while you sleep.</p>
+      </div>
+      <div class="deliverable">
+        <p class="deliverable-num">06</p>
+        <h3>Trigger &amp; Tag Architecture</h3>
+        <p>A clean, scalable tag system that controls enrollment, segmentation, and workflow routing across your entire automation stack.</p>
+      </div>
+      <div class="deliverable">
+        <p class="deliverable-num">07</p>
+        <h3>Ongoing Monthly Management</h3>
+        <p>Monthly support, optimization, and performance reporting. We monitor what's working, fix what isn't, and keep your system running at full capacity.</p>
+      </div>
+      <div class="deliverable">
+        <p class="deliverable-num">08</p>
+        <h3>End-to-End Testing</h3>
+        <p>Every workflow, email, SMS, and trigger is tested with a live contact before we hand it over. You go live knowing everything works.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="process">
+    <p class="section-label">How It Works</p>
+    <h2 class="section-title">From payment to <em>live system</em> in 48 hours.</h2>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>You Purchase - We Start Immediately</h3>
+          <p>As soon as your payment is confirmed, we begin building your system. No waiting, no intake call required to get started.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>We Build Your Entire GHL System</h3>
+          <p>CRM setup, workflows, email sequences, SMS, pipelines, tags, and AI reply handler - all configured to your business and branding.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>We Test Everything End-to-End</h3>
+          <p>Every trigger, email, and automation is verified live before handoff. You receive a full completion report with confirmation of each component.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>You Go Live - We Stay On</h3>
+          <p>Your system is published and running. Monthly management keeps it optimized and performing as your business grows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="pricing">
+    <p class="section-label">Investment</p>
+    <h2 class="section-title">Simple, transparent <em>pricing</em>.</h2>
+    <div class="pricing-wrapper">
+      <div class="pricing-card">
+        <p class="pricing-label">One-Time Setup</p>
+        <p class="pricing-amount">$497</p>
+        <p class="pricing-period">Paid once at purchase</p>
+        <ul class="pricing-features">
+          <li>Full GHL sub-account configuration</li>
+          <li>30-day email nurture sequence</li>
+          <li>SMS follow-up system</li>
+          <li>Sales pipeline setup</li>
+          <li>AI conversation handler</li>
+          <li>Tag &amp; trigger architecture</li>
+          <li>End-to-end testing + completion report</li>
+        </ul>
+        <a href="https://gmoney0112-create.github.io/ai-automation-course/success.html" class="btn-primary" style="display:block;text-align:center;">Get Started -&gt;</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Recommended</div>
+        <p class="pricing-label">Setup + Monthly Management</p>
+        <p class="pricing-amount">$197</p>
+        <p class="pricing-period">Per month after $497 setup</p>
+        <ul class="pricing-features">
+          <li>Everything in Setup</li>
+          <li>Monthly performance monitoring</li>
+          <li>Workflow optimization</li>
+          <li>Monthly reporting</li>
+          <li>Bug fixes and updates included</li>
+          <li>Priority support</li>
+          <li>Scale-ready system architecture</li>
+        </ul>
+        <a href="https://gmoney0112-create.github.io/ai-automation-course/success.html" class="btn-primary" style="display:block;text-align:center;">Get Started -&gt;</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="guarantee">
+    <p class="section-label">Our Commitment</p>
+    <h2 class="section-title">We build it <em>right</em> or we make it right.</h2>
+    <div class="guarantee-box">
+      <p>Every system we deliver is tested end-to-end before it goes live. If anything we build doesn't work as promised within the first 30 days, we fix it - no back-and-forth, no extra charge. Your automation system will work or we'll make it work.</p>
+      <p class="guarantee-sig">- Terrance | AI Automation Mastery</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <p class="section-label">FAQ</p>
+    <h2 class="section-title">Questions, <em>answered</em>.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Do I need to already have GoHighLevel?</div>
+        <div class="faq-a">No. We can set up a GHL sub-account for you as part of the setup process. If you already have GHL, we work directly in your existing account.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How long does setup actually take?</div>
+        <div class="faq-a">48 hours from payment confirmation. In most cases we're faster. You'll receive a completion report when everything is live and tested.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What's included in the monthly management?</div>
+        <div class="faq-a">Monthly monitoring of all automations, workflow optimization based on performance data, bug fixes, updates, and a monthly report showing activity across your system.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I cancel the monthly management?</div>
+        <div class="faq-a">Yes. There's no long-term contract. Cancel anytime. Your system stays yours - we just won't be managing it going forward.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What kind of businesses is this for?</div>
+        <div class="faq-a">Any business that generates leads and needs a system to follow up, nurture, and convert them. Coaches, consultants, agencies, service businesses, real estate - if you have leads, this system works for you.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What do you need from me to get started?</div>
+        <div class="faq-a">Your GHL credentials (or we create the account), your branding details, and your offer link. That's it. We handle the rest.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="final-cta">
+    <h2>Stop losing leads. Start <em>converting</em> them.</h2>
+    <p>Your automated revenue system is 48 hours away. Let's build it.</p>
+    <a href="https://gmoney0112-create.github.io/ai-automation-course/success.html" class="btn-primary">Get Your System Built - $497 -&gt;</a>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 AI Automation Mastery · Terrance | AI Automation Mastery</p>
+    <a href="https://gmoney0112-create.github.io/ai-automation-course/">&lt;- AI Automation Course</a>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-q').forEach((q) => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach((i) => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.deliverable, .process-step, .problem-item, .pricing-card, .faq-item').forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
