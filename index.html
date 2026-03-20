@@ -1,413 +1,1076 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Automation Mastery Course - Automate 80% of Your Business Tasks</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            background: white;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-        }
-        
-        .logo {
-            font-size: 36px;
-            font-weight: 800;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        
-        .tagline {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-        }
-        
-        h1 {
-            font-size: 48px;
-            font-weight: 800;
-            color: #333;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .subtitle {
-            font-size: 24px;
-            color: #667eea;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-        
-        .price {
-            font-size: 72px;
-            font-weight: 800;
-            color: #764ba2;
-            margin: 30px 0;
-        }
-        
-        .price-note {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 40px;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px 50px;
-            font-size: 24px;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin: 20px 0;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
-        }
-        
-        .guarantee {
-            background: #f0f7ff;
-            padding: 20px;
-            border-radius: 15px;
-            margin: 30px 0;
-            text-align: center;
-            border: 2px solid #667eea;
-        }
-        
-        .guarantee h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        
-        section {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        
-        h2 {
-            color: #333;
-            font-size: 36px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .problem-grid, .solution-grid, .modules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .problem-item, .solution-item, .module-item {
-            background: #f8f9ff;
-            padding: 30px;
-            border-radius: 15px;
-            border-left: 5px solid #667eea;
-        }
-        
-        .problem-item h3, .solution-item h3, .module-item h3 {
-            color: #333;
-            margin-bottom: 15px;
-        }
-        
-        .testimonial {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin: 40px 0;
-            text-align: center;
-        }
-        
-        .testimonial-text {
-            font-size: 24px;
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-        
-        .included-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .included-item {
-            background: #f0f7ff;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .included-item h4 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: white;
-            margin-top: 50px;
-        }
-        
-        .faq {
-            margin-top: 40px;
-        }
-        
-        .faq-item {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .faq-question {
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 36px; }
-            .price { font-size: 48px; }
-            .cta-button { padding: 15px 30px; font-size: 20px; }
-            section { padding: 20px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Automation Mastery — Automate 80% of Your Business</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ed;
+    --cream: #ede8e0;
+    --gold: #c9a84c;
+    --gold-light: #e8c96d;
+    --gold-dim: #8a6f2e;
+    --rust: #c45c2e;
+    --green: #2a7a4b;
+    --green-light: #3aad68;
+    --gray: #6b6560;
+    --gray-light: #b5b0a8;
+    --border: rgba(201,168,76,0.2);
+    --border-strong: rgba(201,168,76,0.5);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.35;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 900px; height: 900px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border-strong);
+    padding: 0.4rem 1rem;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--gold);
+    position: relative;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--gray-light);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .proof-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--green-light);
+    background: rgba(42,122,75,0.12);
+    border: 1px solid rgba(42,122,75,0.3);
+    padding: 0.5rem 1.2rem;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-cta {
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SHARED ── */
+  .section {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+    margin: 0;
+  }
+
+  /* ── PAIN POINTS ── */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  .pain-card {
+    background: var(--black);
+    padding: 2rem 1.5rem;
+    transition: background 0.3s;
+  }
+
+  .pain-card:hover { background: #111; }
+
+  .pain-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .pain-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .pain-card p {
+    font-size: 0.85rem;
+    color: var(--gray-light);
+    line-height: 1.5;
+  }
+
+  /* ── PRICING ── */
+  .pricing-section {
+    padding: 6rem 2rem;
+    background: #080808;
+    position: relative;
+  }
+
+  .pricing-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .pricing-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+    text-align: left;
+  }
+
+  .pricing-card {
+    background: #0d0d0d;
+    padding: 2.5rem 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.3s;
+  }
+
+  .pricing-card:hover { background: #111; }
+
+  .pricing-card.featured {
+    background: #0f0e0b;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -1px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--black);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 1rem;
+  }
+
+  .tier-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 0.75rem;
+  }
+
+  .tier-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .tier-desc {
+    font-size: 0.85rem;
+    color: var(--gray-light);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .price-amount {
+    font-family: 'Syne', sans-serif;
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .price-amount.gold { color: var(--gold); }
+
+  .price-currency {
+    font-size: 1.2rem;
+    color: var(--gray);
+    align-self: flex-start;
+    padding-top: 0.4rem;
+  }
+
+  .price-cadence {
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-bottom: 2rem;
+  }
+
+  .feature-list {
+    list-style: none;
+    flex: 1;
+    margin-bottom: 2rem;
+  }
+
+  .feature-list li {
+    font-size: 0.85rem;
+    color: var(--gray-light);
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    line-height: 1.4;
+  }
+
+  .feature-list li:last-child { border-bottom: none; }
+
+  .feature-list li::before {
+    content: '✓';
+    color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .feature-list li.highlight::before { color: var(--green-light); }
+  .feature-list li.highlight { color: var(--white); }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--border-strong);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline-gold {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+  }
+
+  .btn-outline-gold:hover {
+    background: var(--gold);
+    color: var(--black);
+    transform: translateY(-1px);
+  }
+
+  .btn-hero {
+    display: inline-block;
+    width: auto;
+    padding: 1.1rem 2.5rem;
+    background: var(--gold);
+    color: var(--black);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-hero:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201,168,76,0.25);
+  }
+
+  /* ── CURRICULUM ── */
+  .curriculum-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  .module-card {
+    background: var(--black);
+    padding: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    transition: background 0.3s;
+  }
+
+  .module-card:hover { background: #0f0f0f; }
+
+  .module-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--border-strong);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2rem;
+  }
+
+  .module-content h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .module-content p {
+    font-size: 0.82rem;
+    color: var(--gray-light);
+    line-height: 1.5;
+  }
+
+  /* ── TESTIMONIAL ── */
+  .testimonial-section {
+    padding: 5rem 2rem;
+    background: #080808;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .testimonial-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .quote-mark {
+    font-family: 'Syne', sans-serif;
+    font-size: 5rem;
+    line-height: 0.5;
+    color: var(--gold-dim);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  blockquote {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  cite {
+    font-size: 0.8rem;
+    color: var(--gold);
+    font-style: normal;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── FAQ ── */
+  .faq-list {
+    margin-top: 3rem;
+    border: 1px solid var(--border);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq-item:last-child { border-bottom: none; }
+
+  .faq-q {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 1.5rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: background 0.2s;
+  }
+
+  .faq-q:hover { background: rgba(255,255,255,0.02); }
+
+  .faq-icon {
+    color: var(--gold);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+  .faq-a {
+    display: none;
+    padding: 0 2rem 1.5rem;
+    font-size: 0.88rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+  }
+
+  .faq-item.open .faq-a { display: block; }
+
+  /* ── GUARANTEE ── */
+  .guarantee-box {
+    border: 1px solid var(--border-strong);
+    padding: 3rem;
+    text-align: center;
+    position: relative;
+    margin-top: 4rem;
+    background: rgba(201,168,76,0.03);
+  }
+
+  .guarantee-box::before {
+    content: '30';
+    position: absolute;
+    top: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--black);
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+  }
+
+  .guarantee-box h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .guarantee-box p {
+    font-size: 0.88rem;
+    color: var(--gray-light);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    padding: 8rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .final-cta h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+  }
+
+  .final-cta p {
+    color: var(--gray-light);
+    max-width: 480px;
+    margin: 0 auto 3rem;
+  }
+
+  .final-btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .final-btn-group a {
+    display: inline-block;
+    padding: 1.1rem 2.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .fbtn-core {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--border-strong);
+  }
+  .fbtn-core:hover { border-color: var(--gold); color: var(--gold); }
+
+  .fbtn-launch {
+    background: var(--gold);
+    color: var(--black);
+  }
+  .fbtn-launch:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .fbtn-member {
+    background: transparent;
+    color: var(--green-light);
+    border: 1px solid rgba(58,173,104,0.4);
+  }
+  .fbtn-member:hover { background: rgba(58,173,104,0.1); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2.5rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--gray);
+    line-height: 2;
+  }
+
+  footer a { color: var(--gold-dim); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 3rem;
+    font-size: 0.85rem;
+  }
+
+  .compare-table th {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 1.2rem 1rem;
+    border-bottom: 1px solid var(--border-strong);
+    text-align: center;
+  }
+
+  .compare-table th:first-child { text-align: left; }
+  .compare-table th.featured-col { color: var(--gold); }
+
+  .compare-table td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    color: var(--gray-light);
+  }
+
+  .compare-table td:first-child {
+    text-align: left;
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .check { color: var(--green-light); font-size: 1rem; }
+  .compare-table .cross { color: #444; font-size: 0.9rem; }
+  .compare-table .featured-col { background: rgba(201,168,76,0.04); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .pricing-grid, .compare-table { font-size: 0.8rem; }
+    .compare-table th, .compare-table td { padding: 0.7rem 0.5rem; }
+    .guarantee-box { padding: 2rem 1.5rem; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">AI Business Twin</div>
-            <div class="tagline">World's First Autonomous AI Business System</div>
-            <h1>Automate 80% of Your Business Tasks Using AI</h1>
-            <div class="subtitle">Learn the exact system that generated $97 in automated revenue in our live test</div>
-            <div class="price">$97</div>
-            <div class="price-note">One-time payment • Lifetime access</div>
-            <a href="https://buy.stripe.com/eVq3cx1PX9Eoet8aBx3Ru0c" class="cta-button" target="_blank">GET INSTANT ACCESS NOW</a>
-            <div class="guarantee">
-                <h3>30-Day Money-Back Guarantee</h3>
-                <p>If you don't automate at least one business process within 30 days, get a full refund. No questions asked.</p>
-            </div>
-        </header>
 
-        <section id="problem">
-            <h2>Are Manual Tasks Consuming Your Time?</h2>
-            <div class="problem-grid">
-                <div class="problem-item">
-                    <h3>⏰ Time Drain</h3>
-                    <p>Spending hours on repetitive tasks that could be automated?</p>
-                </div>
-                <div class="problem-item">
-                    <h3>📈 Scaling Limitations</h3>
-                    <p>Can't grow your business without proportional increase in manual work?</p>
-                </div>
-                <div class="problem-item">
-                    <h3>🤖 Tech Overwhelm</h3>
-                    <p>Confused by complex AI tools and automation platforms?</p>
-                </div>
-                <div class="problem-item">
-                    <h3>💰 Revenue Ceiling</h3>
-                    <p>Limited by how much work you can personally handle?</p>
-                </div>
-            </div>
-        </section>
+<!-- ── HERO ── -->
+<section class="hero">
+  <div>
+    <div class="eyebrow">AI Automation Mastery</div>
+    <h1>Automate <em>80%</em> of Your<br>Business Tasks Using AI</h1>
+    <p class="hero-sub">The exact system that generated $97 in automated revenue in a live end-to-end test. Three tiers. One path to autonomous business operations.</p>
+    <div class="proof-bar">⚡ Live system — generated Stripe revenue on March 15, 2026</div>
+    <div class="hero-cta">
+      <a href="#pricing" class="btn-hero">See Pricing & Enroll</a>
+    </div>
+  </div>
+</section>
 
-        <section id="solution">
-            <h2>The AI Automation Solution</h2>
-            <div class="solution-grid">
-                <div class="solution-item">
-                    <h3>Proven System</h3>
-                    <p>This exact system generated $97 in automated revenue in our live end-to-end test. No theory - just working automation.</p>
-                </div>
-                <div class="solution-item">
-                    <h3>Step-by-Step Framework</h3>
-                    <p>Follow our exact blueprint for identifying and automating business processes. We've done the hard work for you.</p>
-                </div>
-                <div class="solution-item">
-                    <h3>Tools That Actually Work</h3>
-                    <p>We've tested dozens of AI tools and automation platforms. We'll show you only what actually works in production.</p>
-                </div>
-                <div class="solution-item">
-                    <h3>Real Business Results</h3>
-                    <p>This isn't about automating trivial tasks. This is about automating revenue-generating business processes.</p>
-                </div>
-            </div>
-        </section>
+<div class="divider"></div>
 
-        <div class="testimonial">
-            <div class="testimonial-text">
-                "The $97 AI Automation Course showed me how to automate lead generation that now brings in $5,000/month on autopilot."
-            </div>
-            <div class="testimonial-author">- Sarah J., Agency Owner</div>
+<!-- ── PAIN ── -->
+<section class="section">
+  <div class="section-label">The Problem</div>
+  <h2>Manual tasks are capping<br>your revenue ceiling</h2>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <span class="pain-icon">⏰</span>
+      <h3>Time Drain</h3>
+      <p>Hours spent on repetitive tasks that a well-configured AI could handle in seconds.</p>
+    </div>
+    <div class="pain-card">
+      <span class="pain-icon">📈</span>
+      <h3>Scaling Ceiling</h3>
+      <p>Every new client requires proportional manual work. Growth costs you time, not leverage.</p>
+    </div>
+    <div class="pain-card">
+      <span class="pain-icon">🤖</span>
+      <h3>Tool Overwhelm</h3>
+      <p>Dozens of AI tools. No clear system. You're experimenting instead of executing.</p>
+    </div>
+    <div class="pain-card">
+      <span class="pain-icon">💰</span>
+      <h3>Revenue Ceiling</h3>
+      <p>You're limited by your own hours. The business can't run without you.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── CURRICULUM ── -->
+<section class="section">
+  <div class="section-label">The Curriculum</div>
+  <h2>Six modules. One working<br>automation system.</h2>
+  <div class="curriculum-grid">
+    <div class="module-card">
+      <div class="module-num">01</div>
+      <div class="module-content">
+        <h3>AI Business Twin Fundamentals</h3>
+        <p>Architecture of autonomous AI business systems — how they actually work in production.</p>
+      </div>
+    </div>
+    <div class="module-card">
+      <div class="module-num">02</div>
+      <div class="module-content">
+        <h3>Process Identification</h3>
+        <p>The ROI framework for deciding which processes to automate first. Stop guessing.</p>
+      </div>
+    </div>
+    <div class="module-card">
+      <div class="module-num">03</div>
+      <div class="module-content">
+        <h3>Tool Stack Setup</h3>
+        <p>The exact tools that work in production. We've tested the rest so you don't have to.</p>
+      </div>
+    </div>
+    <div class="module-card">
+      <div class="module-num">04</div>
+      <div class="module-content">
+        <h3>Implementation Blueprint</h3>
+        <p>Step-by-step build of your first live automation workflow — from zero to deployed.</p>
+      </div>
+    </div>
+    <div class="module-card">
+      <div class="module-num">05</div>
+      <div class="module-content">
+        <h3>Testing & Optimization</h3>
+        <p>How to stress-test automations and tune them for reliability at scale.</p>
+      </div>
+    </div>
+    <div class="module-card">
+      <div class="module-num">06</div>
+      <div class="module-content">
+        <h3>Scaling Strategies</h3>
+        <p>Expand your automation system across the entire business. The flywheel approach.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── PRICING ── -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <div class="section-label">Choose Your Path</div>
+    <h2>Three tiers. One decision.</h2>
+    <p style="color:var(--gray-light);max-width:520px;margin:0 auto;font-size:0.9rem;">Start with the course and build yourself — or let us build your system with you. Every tier includes the full curriculum.</p>
+
+    <div class="pricing-grid">
+
+      <!-- CORE -->
+      <div class="pricing-card">
+        <div class="tier-label">Self-Implementation</div>
+        <div class="tier-name">Core</div>
+        <div class="tier-desc">Everything you need to build your automation system independently.</div>
+        <div class="price-row">
+          <span class="price-currency">$</span>
+          <span class="price-amount">97</span>
         </div>
+        <div class="price-cadence">One-time payment · Lifetime access</div>
+        <ul class="feature-list">
+          <li>6-module video course</li>
+          <li>Ready-to-use automation templates</li>
+          <li>AI Business Twin platform access</li>
+          <li>Private community access</li>
+          <li>30 days email support</li>
+          <li>Implementation checklists & guides</li>
+        </ul>
+        <a href="https://buy.stripe.com/eVq3cx1PX9Eoet8aBx3Ru0c" class="btn btn-secondary">Get Core Access →</a>
+      </div>
 
-        <section id="whats-included">
-            <h2>What You'll Get</h2>
-            <div class="included-items">
-                <div class="included-item">
-                    <h4>🎥 Video Course</h4>
-                    <p>6 modules of step-by-step AI automation implementation</p>
-                </div>
-                <div class="included-item">
-                    <h4>📋 Templates</h4>
-                    <p>Ready-to-use automation workflows you can copy and deploy</p>
-                </div>
-                <div class="included-item">
-                    <h4>🛠️ Tools Access</h4>
-                    <p>Exclusive access to AI Business Twin platform tools</p>
-                </div>
-                <div class="included-item">
-                    <h4>👥 Community</h4>
-                    <p>Private community of business owners automating their operations</p>
-                </div>
-                <div class="included-item">
-                    <h4>📧 Support</h4>
-                    <p>30 days of email support to help with implementation</p>
-                </div>
-                <div class="included-item">
-                    <h4>📚 Resources</h4>
-                    <p>Checklists, cheat sheets, and implementation guides</p>
-                </div>
-            </div>
-        </section>
+      <!-- LAUNCH SYSTEM -->
+      <div class="pricing-card featured">
+        <div class="featured-badge">Most Popular</div>
+        <div class="tier-label">Done-For-You Setup</div>
+        <div class="tier-name">Launch System</div>
+        <div class="tier-desc">We set up your automation system for you. You show up to a working pipeline.</div>
+        <div class="price-row">
+          <span class="price-currency">$</span>
+          <span class="price-amount gold">497</span>
+        </div>
+        <div class="price-cadence">One-time · Full setup included</div>
+        <ul class="feature-list">
+          <li class="highlight">Everything in Core</li>
+          <li class="highlight">Done-for-you system setup</li>
+          <li class="highlight">Custom automation configured for your business</li>
+          <li>GHL + AI integration buildout</li>
+          <li>Revenue pipeline configuration</li>
+          <li>Live system handoff call</li>
+          <li>60 days priority support</li>
+        </ul>
+        <a href="https://buy.stripe.com/4gM8wRdyFbMw4Sy7pl3Ru0j" class="btn btn-primary">Get Launch System →</a>
+      </div>
 
-        <section id="curriculum">
-            <h2>Course Curriculum</h2>
-            <div class="modules-grid">
-                <div class="module-item">
-                    <h3>Module 1: AI Business Twin Fundamentals</h3>
-                    <p>Understand the architecture of autonomous AI business systems</p>
-                </div>
-                <div class="module-item">
-                    <h3>Module 2: Process Identification</h3>
-                    <p>How to identify which business processes to automate first for maximum ROI</p>
-                </div>
-                <div class="module-item">
-                    <h3>Module 3: Tool Stack Setup</h3>
-                    <p>Setting up your AI automation tool stack (we show you exactly what works)</p>
-                </div>
-                <div class="module-item">
-                    <h3>Module 4: Implementation Blueprint</h3>
-                    <p>Step-by-step implementation of your first automation workflow</p>
-                </div>
-                <div class="module-item">
-                    <h3>Module 5: Testing & Optimization</h3>
-                    <p>How to test your automations and optimize for maximum efficiency</p>
-                </div>
-                <div class="module-item">
-                    <h3>Module 6: Scaling Strategies</h3>
-                    <p>How to scale your automations across your entire business</p>
-                </div>
-            </div>
-        </section>
+      <!-- MONTHLY MEMBERSHIP -->
+      <div class="pricing-card">
+        <div class="tier-label">Ongoing Partnership</div>
+        <div class="tier-name">Monthly<br>Membership</div>
+        <div class="tier-desc">Continuous updates, support, and access as the AI landscape evolves.</div>
+        <div class="price-row">
+          <span class="price-currency">$</span>
+          <span class="price-amount">197</span>
+        </div>
+        <div class="price-cadence">Per month · Cancel anytime</div>
+        <ul class="feature-list">
+          <li class="highlight">Everything in Core</li>
+          <li>New modules as AI tools evolve</li>
+          <li>Monthly live Q&A sessions</li>
+          <li>Direct Slack access</li>
+          <li>New templates monthly</li>
+          <li>Early access to new tools</li>
+          <li>Priority feature requests</li>
+        </ul>
+        <a href="https://buy.stripe.com/3cI5kFfGN7wg84K2513Ru0k" class="btn btn-outline-gold">Join Membership →</a>
+      </div>
 
-        <section id="enroll">
-            <h2>Get Started Today</h2>
-            <div style="text-align: center;">
-                <div class="price">$97</div>
-                <div class="price-note">One-time payment • Lifetime access • 30-day guarantee</div>
-                <a href="https://buy.stripe.com/eVq3cx1PX9Eoet8aBx3Ru0c" class="cta-button" target="_blank">ENROLL NOW & GET INSTANT ACCESS</a>
-                <p style="margin-top: 20px; color: #666;">Stripe payment processing secured • Instant digital delivery</p>
-            </div>
-        </section>
+    </div><!-- /pricing-grid -->
 
-        <section class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <div class="faq-question">Is this course really only $97?</div>
-                <p>Yes! We're launching at $97 for early adopters. The price will increase as we add more content and success stories.</p>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Do I need technical skills?</div>
-                <p>No technical skills required. We show you exactly what to do, step-by-step. If you can use email and a web browser, you can implement these automations.</p>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">How soon will I see results?</div>
-                <p>Most students automate their first business process within the first week. The 30-day guarantee gives you plenty of time to see results.</p>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">What if I need help?</div>
-                <p>You get 30 days of email support included. Plus access to our private community where you can ask questions and get help from other students.</p>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Is there an upsell or hidden costs?</div>
-                <p>No hidden costs. The $97 includes everything. We do offer advanced training and agency services, but they're completely optional.</p>
-            </div>
-        </section>
+    <!-- COMPARISON TABLE -->
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Core<br><small style="font-weight:300;color:var(--gray)">$97</small></th>
+          <th class="featured-col">Launch System<br><small style="font-weight:300">$497</small></th>
+          <th>Membership<br><small style="font-weight:300;color:var(--gray)">$197/mo</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>6-Module Video Course</td>
+          <td class="check">✓</td>
+          <td class="check featured-col">✓</td>
+          <td class="check">✓</td>
+        </tr>
+        <tr>
+          <td>Automation Templates</td>
+          <td class="check">✓</td>
+          <td class="check featured-col">✓</td>
+          <td class="check">✓</td>
+        </tr>
+        <tr>
+          <td>Platform Access</td>
+          <td class="check">✓</td>
+          <td class="check featured-col">✓</td>
+          <td class="check">✓</td>
+        </tr>
+        <tr>
+          <td>Community Access</td>
+          <td class="check">✓</td>
+          <td class="check featured-col">✓</td>
+          <td class="check">✓</td>
+        </tr>
+        <tr>
+          <td>Done-For-You Setup</td>
+          <td class="cross">—</td>
+          <td class="check featured-col">✓</td>
+          <td class="cross">—</td>
+        </tr>
+        <tr>
+          <td>Custom Pipeline Config</td>
+          <td class="cross">—</td>
+          <td class="check featured-col">✓</td>
+          <td class="cross">—</td>
+        </tr>
+        <tr>
+          <td>Monthly New Content</td>
+          <td class="cross">—</td>
+          <td class="cross featured-col">—</td>
+          <td class="check">✓</td>
+        </tr>
+        <tr>
+          <td>Live Q&A Sessions</td>
+          <td class="cross">—</td>
+          <td class="cross featured-col">—</td>
+          <td class="check">✓</td>
+        </tr>
+        <tr>
+          <td>Direct Slack Access</td>
+          <td class="cross">—</td>
+          <td class="cross featured-col">—</td>
+          <td class="check">✓</td>
+        </tr>
+        <tr>
+          <td>Support Duration</td>
+          <td style="color:var(--gray-light)">30 days</td>
+          <td class="featured-col" style="color:var(--gold-light)">60 days priority</td>
+          <td style="color:var(--gray-light)">Ongoing</td>
+        </tr>
+      </tbody>
+    </table>
 
-        <footer>
-            <p>© 2026 AI Business Twin. All rights reserved.</p>
-            <p style="margin-top: 10px; opacity: 0.8;">This system generated $97 in automated revenue in our live test on March 15, 2026.</p>
-        </footer>
+    <div class="guarantee-box">
+      <h3>30-Day Money-Back Guarantee</h3>
+      <p>If you don't automate at least one business process within 30 days, get a full refund. No questions asked. All three tiers are covered.</p>
     </div>
 
-    <script>
-        // Simple animation for CTA button
-        document.querySelector('.cta-button').addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px)';
-            this.style.boxShadow = '0 20px 40px rgba(102, 126, 234, 0.4)';
-        });
-        
-        document.querySelector('.cta-button').addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = 'none';
-        });
-        
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 20,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Track conversions (placeholder for actual analytics)
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                console.log('Conversion tracked: AI Automation Course enrollment click');
-                // In production: Add your analytics code here
-            });
-        });
-    </script>
+  </div>
+</section>
+
+<!-- ── TESTIMONIAL ── -->
+<section class="testimonial-section">
+  <div class="testimonial-inner">
+    <span class="quote-mark">"</span>
+    <blockquote>The $97 AI Automation Course showed me how to automate lead generation that now brings in $5,000/month on autopilot.</blockquote>
+    <cite>Sarah J. — Agency Owner</cite>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="section">
+  <div class="section-label">Common Questions</div>
+  <h2>Answers before you decide</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q">What's the difference between Core and Launch System? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Core gives you the full course and tools to build your automation system yourself. Launch System includes everything in Core plus we build and configure your automation pipeline for you — custom-fitted to your specific business. You get a working system delivered, not just instructions on how to build one.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Do I need technical skills for any tier? <span class="faq-icon">+</span></button>
+      <div class="faq-a">No technical skills required for Core or Membership. For Launch System, you don't need any technical skills at all — we handle the setup. If you can use email and a browser, you can implement what Core teaches. Launch System removes even that requirement.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How quickly will I see results? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Most Core students automate their first business process within the first week. Launch System customers typically have a working pipeline within 5–7 business days of enrollment. The 30-day guarantee gives you plenty of time to validate.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I upgrade between tiers? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Yes. If you start with Core and want the done-for-you setup later, reach out and we'll credit your $97 toward the Launch System price. Membership can be added to any tier at any time.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What does the Monthly Membership include long-term? <span class="faq-icon">+</span></button>
+      <div class="faq-a">The AI landscape moves fast. Membership keeps you current — new modules as tools evolve, monthly live Q&A sessions, direct Slack access for questions, and early access to new automation tools and templates. Cancel anytime, no lock-in.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Are there hidden costs or upsells? <span class="faq-icon">+</span></button>
+      <div class="faq-a">No hidden costs. Each tier includes exactly what's listed. We offer additional agency services, but they're completely optional and never pushed on you inside the course.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ── -->
+<section class="final-cta">
+  <div class="section-label">Ready to Start</div>
+  <h2>Choose your tier.<br>Start automating today.</h2>
+  <p>Every tier includes the full 6-module curriculum and a 30-day money-back guarantee.</p>
+  <div class="final-btn-group">
+    <a href="https://buy.stripe.com/eVq3cx1PX9Eoet8aBx3Ru0c" class="fbtn-core">Core — $97</a>
+    <a href="https://buy.stripe.com/4gM8wRdyFbMw4Sy7pl3Ru0j" class="fbtn-launch">Launch System — $497</a>
+    <a href="https://buy.stripe.com/3cI5kFfGN7wg84K2513Ru0k" class="fbtn-member">Membership — $197/mo</a>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 AI Business Twin. All rights reserved.</div>
+  <div>Secured by <a href="#">Stripe</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></div>
+  <div style="margin-top:0.5rem;color:#333">This system generated $97 in automated revenue in a live test on March 15, 2026.</div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
 </body>
 </html>
