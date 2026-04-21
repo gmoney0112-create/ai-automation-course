@@ -1,0 +1,470 @@
+{
+  "name": "AI Course - Stripe Payment Router",
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Stripe Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ai-course-stripe",
+        "responseMode": "onReceived",
+        "options": {
+          "rawBody": true
+        }
+      }
+    },
+    {
+      "id": "2",
+      "name": "Verify Stripe Signature",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const crypto = require('crypto');\nconst incoming = $input.first();\nconst rawBody = incoming.json.body || incoming.binary?.data || incoming.body;\nconst headers = incoming.json.headers || {};\nconst sig = headers['stripe-signature'] || headers['Stripe-Signature'];\nconst secret = process.env.STRIPE_WEBHOOK_SECRET;\nif (!secret) throw new Error('Missing STRIPE_WEBHOOK_SECRET');\nif (!sig) throw new Error('Missing stripe-signature header');\nif (typeof rawBody !== 'string') throw new Error('Raw body not preserved. Enable Raw Body on the Webhook node.');\nconst sigParts = Object.fromEntries(sig.split(',').map(part => part.split('=')));\nconst timestamp = sigParts.t;\nconst receivedSig = sigParts.v1;\nif (!timestamp || !receivedSig) throw new Error('Malformed stripe-signature header');\nconst toleranceSec = 300;\nconst age = Math.floor(Date.now() / 1000) - parseInt(timestamp, 10);\nif (age > toleranceSec) throw new Error(`Webhook too old: ${age}s`);\nconst signedPayload = `${timestamp}.${rawBody}`;\nconst expectedSig = crypto.createHmac('sha256', secret).update(signedPayload, 'utf8').digest('hex');\nif (expectedSig !== receivedSig) throw new Error('Stripe signature mismatch');\nconst event = JSON.parse(rawBody);\nreturn [{ json: event }];"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Extract Event",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 300],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const event = $input.first().json;\nconst eventType = event.type;\nconst TIER_TAG_MAP = {\n  core: 'course-core-purchased',\n  launch_system: 'course-launch-system-purchased',\n  membership: 'course-membership-active'\n};\nconst PRICE_ID_MAP = {\n  'price_REPLACE_WITH_CORE_PRICE_ID': 'core',\n  'price_REPLACE_WITH_LAUNCH_PRICE_ID': 'launch_system',\n  'price_REPLACE_WITH_MEMBERSHIP_PRICE_ID': 'membership'\n};\nif (eventType === 'checkout.session.completed') {\n  const session = event.data.object;\n  let tier = session.metadata?.tier || null;\n  if (!tier && session.metadata?.price_id && PRICE_ID_MAP[session.metadata.price_id]) {\n    tier = PRICE_ID_MAP[session.metadata.price_id];\n  }\n  if (!tier) tier = 'unknown';\n  const tag = TIER_TAG_MAP[tier] || null;\n  if (!tag) {\n    throw new Error(`Unknown tier \"${tier}\" for session ${session.id}`);\n  }\n  return [{\n    json: {\n      eventType,\n      email: session.customer_details?.email || session.customer_email || '',\n      name: session.customer_details?.name || '',\n      phone: session.customer_details?.phone || '',\n      tier,\n      tag,\n      stripeCustomerId: session.customer || '',\n      stripeSessionId: session.id,\n      amountPaid: session.amount_total || 0,\n      purchaseDate: new Date().toISOString().slice(0, 10)\n    }\n  }];\n}\nif (eventType === 'customer.subscription.deleted' || eventType === 'invoice.payment_failed') {\n  const obj = event.data.object;\n  return [{\n    json: {\n      eventType,\n      stripeCustomerId: obj.customer || '',\n      subscriptionId: obj.id || obj.subscription || ''\n    }\n  }];\n}\nreturn [{ json: { eventType, raw: event } }];"
+      }
+    },
+    {
+      "id": "4",
+      "name": "Route Event",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [960, 300],
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.eventType}}",
+                    "rightValue": "checkout.session.completed",
+                    "operator": { "type": "string", "operation": "equals" }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "checkout_completed"
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.eventType}}",
+                    "rightValue": "customer.subscription.deleted",
+                    "operator": { "type": "string", "operation": "equals" }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "subscription_deleted"
+            },
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.eventType}}",
+                    "rightValue": "invoice.payment_failed",
+                    "operator": { "type": "string", "operation": "equals" }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "invoice_failed"
+            }
+          ]
+        },
+        "fallbackOutput": "none"
+      }
+    },
+    {
+      "id": "5",
+      "name": "Lookup Contact By Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1220, 140],
+      "parameters": {
+        "method": "GET",
+        "url": "https://services.leadconnectorhq.com/contacts/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{'Bearer ' + $env.GHL_API_KEY}}" },
+            { "name": "Version", "value": "2021-07-28" }
+          ]
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "locationId", "value": "gbUy4Z0Ug5dziTftbJNP" },
+            { "name": "email", "value": "={{$node[\"Extract Event\"].json.email}}" }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "6",
+      "name": "Contact Exists?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1460, 140],
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ Array.isArray($json.contacts) ? $json.contacts.length : 0 }}",
+              "rightValue": 0,
+              "operator": { "type": "number", "operation": "larger" }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "7",
+      "name": "Update Existing Contact Metadata",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1700, 40],
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://services.leadconnectorhq.com/contacts/{{$json.contacts[0].id}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{'Bearer ' + $env.GHL_API_KEY}}" },
+            { "name": "Version", "value": "2021-07-28" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ ({ customFields: [ { key: 'stripe_customer_id', field_value: $node[\"Extract Event\"].json.stripeCustomerId }, { key: 'course_tier', field_value: $node[\"Extract Event\"].json.tier }, { key: 'course_purchase_date', field_value: $node[\"Extract Event\"].json.purchaseDate } ] }) }}"
+      }
+    },
+    {
+      "id": "8",
+      "name": "Add Tag To Existing Contact",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1940, 40],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://services.leadconnectorhq.com/contacts/{{$node[\"Lookup Contact By Email\"].json.contacts[0].id}}/tags",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{'Bearer ' + $env.GHL_API_KEY}}" },
+            { "name": "Version", "value": "2021-07-28" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ ({ tags: [ $node[\"Extract Event\"].json.tag ] }) }}"
+      }
+    },
+    {
+      "id": "9",
+      "name": "Create New Contact",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1700, 240],
+      "parameters": {
+        "method": "POST",
+        "url": "https://services.leadconnectorhq.com/contacts/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{'Bearer ' + $env.GHL_API_KEY}}" },
+            { "name": "Version", "value": "2021-07-28" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ ({ locationId: 'gbUy4Z0Ug5dziTftbJNP', email: $node[\"Extract Event\"].json.email, firstName: ($node[\"Extract Event\"].json.name || '').split(' ')[0] || '', lastName: ($node[\"Extract Event\"].json.name || '').split(' ').slice(1).join(' '), phone: $node[\"Extract Event\"].json.phone || '', source: 'AI Automation Mastery Course', customFields: [ { key: 'stripe_customer_id', field_value: $node[\"Extract Event\"].json.stripeCustomerId }, { key: 'course_tier', field_value: $node[\"Extract Event\"].json.tier }, { key: 'course_purchase_date', field_value: $node[\"Extract Event\"].json.purchaseDate } ] }) }}"
+      }
+    },
+    {
+      "id": "10",
+      "name": "Lookup Created Contact By Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1940, 240],
+      "parameters": {
+        "method": "GET",
+        "url": "https://services.leadconnectorhq.com/contacts/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{'Bearer ' + $env.GHL_API_KEY}}" },
+            { "name": "Version", "value": "2021-07-28" }
+          ]
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "locationId", "value": "gbUy4Z0Ug5dziTftbJNP" },
+            { "name": "email", "value": "={{$node[\"Extract Event\"].json.email}}" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "11",
+      "name": "Add Tag To New Contact",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [2180, 240],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://services.leadconnectorhq.com/contacts/{{$json.contacts[0].id}}/tags",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{'Bearer ' + $env.GHL_API_KEY}}" },
+            { "name": "Version", "value": "2021-07-28" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ ({ tags: [ $node[\"Extract Event\"].json.tag ] }) }}"
+      }
+    },
+    {
+      "id": "12",
+      "name": "Search Contact By Stripe Customer ID - Cancel",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1240, 380],
+      "parameters": {
+        "method": "POST",
+        "url": "https://services.leadconnectorhq.com/contacts/search",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{'Bearer ' + $env.GHL_API_KEY}}" },
+            { "name": "Version", "value": "2021-07-28" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ ({ locationId: 'gbUy4Z0Ug5dziTftbJNP', filters: [ { field: 'customFields.stripe_customer_id', operator: 'eq', value: $node[\"Extract Event\"].json.stripeCustomerId } ], pageLimit: 1 }) }}"
+      }
+    },
+    {
+      "id": "13",
+      "name": "Cancel Contact Found?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1480, 380],
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ Array.isArray($json.contacts) ? $json.contacts.length : 0 }}",
+              "rightValue": 0,
+              "operator": { "type": "number", "operation": "larger" }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "14",
+      "name": "Add Membership Cancelled Tag",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1720, 340],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://services.leadconnectorhq.com/contacts/{{$json.contacts[0].id}}/tags",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{'Bearer ' + $env.GHL_API_KEY}}" },
+            { "name": "Version", "value": "2021-07-28" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ ({ tags: [ 'course-membership-cancelled' ] }) }}"
+      }
+    },
+    {
+      "id": "15",
+      "name": "Remove Membership Active Tag",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1960, 340],
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://services.leadconnectorhq.com/contacts/{{$node[\"Search Contact By Stripe Customer ID - Cancel\"].json.contacts[0].id}}/tags/course-membership-active",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{'Bearer ' + $env.GHL_API_KEY}}" },
+            { "name": "Version", "value": "2021-07-28" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "16",
+      "name": "Search Contact By Stripe Customer ID - Failed",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1240, 540],
+      "parameters": {
+        "method": "POST",
+        "url": "https://services.leadconnectorhq.com/contacts/search",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{'Bearer ' + $env.GHL_API_KEY}}" },
+            { "name": "Version", "value": "2021-07-28" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ ({ locationId: 'gbUy4Z0Ug5dziTftbJNP', filters: [ { field: 'customFields.stripe_customer_id', operator: 'eq', value: $node[\"Extract Event\"].json.stripeCustomerId } ], pageLimit: 1 }) }}"
+      }
+    },
+    {
+      "id": "17",
+      "name": "Failed Contact Found?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1480, 540],
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ Array.isArray($json.contacts) ? $json.contacts.length : 0 }}",
+              "rightValue": 0,
+              "operator": { "type": "number", "operation": "larger" }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "18",
+      "name": "Add Membership Payment Failed Tag",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1720, 540],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://services.leadconnectorhq.com/contacts/{{$json.contacts[0].id}}/tags",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "={{'Bearer ' + $env.GHL_API_KEY}}" },
+            { "name": "Version", "value": "2021-07-28" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ ({ tags: [ 'course-membership-payment-failed' ] }) }}"
+      }
+    }
+  ],
+  "connections": {
+    "Stripe Webhook": {
+      "main": [[{ "node": "Verify Stripe Signature", "type": "main", "index": 0 }]]
+    },
+    "Verify Stripe Signature": {
+      "main": [[{ "node": "Extract Event", "type": "main", "index": 0 }]]
+    },
+    "Extract Event": {
+      "main": [[{ "node": "Route Event", "type": "main", "index": 0 }]]
+    },
+    "Route Event": {
+      "main": [
+        [{ "node": "Lookup Contact By Email", "type": "main", "index": 0 }],
+        [{ "node": "Search Contact By Stripe Customer ID - Cancel", "type": "main", "index": 0 }],
+        [{ "node": "Search Contact By Stripe Customer ID - Failed", "type": "main", "index": 0 }]
+      ]
+    },
+    "Lookup Contact By Email": {
+      "main": [[{ "node": "Contact Exists?", "type": "main", "index": 0 }]]
+    },
+    "Contact Exists?": {
+      "main": [
+        [{ "node": "Update Existing Contact Metadata", "type": "main", "index": 0 }],
+        [{ "node": "Create New Contact", "type": "main", "index": 0 }]
+      ]
+    },
+    "Update Existing Contact Metadata": {
+      "main": [[{ "node": "Add Tag To Existing Contact", "type": "main", "index": 0 }]]
+    },
+    "Create New Contact": {
+      "main": [[{ "node": "Lookup Created Contact By Email", "type": "main", "index": 0 }]]
+    },
+    "Lookup Created Contact By Email": {
+      "main": [[{ "node": "Add Tag To New Contact", "type": "main", "index": 0 }]]
+    },
+    "Search Contact By Stripe Customer ID - Cancel": {
+      "main": [[{ "node": "Cancel Contact Found?", "type": "main", "index": 0 }]]
+    },
+    "Cancel Contact Found?": {
+      "main": [
+        [{ "node": "Add Membership Cancelled Tag", "type": "main", "index": 0 }],
+        []
+      ]
+    },
+    "Add Membership Cancelled Tag": {
+      "main": [[{ "node": "Remove Membership Active Tag", "type": "main", "index": 0 }]]
+    },
+    "Search Contact By Stripe Customer ID - Failed": {
+      "main": [[{ "node": "Failed Contact Found?", "type": "main", "index": 0 }]]
+    },
+    "Failed Contact Found?": {
+      "main": [
+        [{ "node": "Add Membership Payment Failed Tag", "type": "main", "index": 0 }],
+        []
+      ]
+    }
+  }
+}
