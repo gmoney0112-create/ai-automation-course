@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bonus Module: Swan Shine Case Study — AI Automation Mastery</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0E14;
+  --surface: #111720;
+  --surface2: #161d28;
+  --border: rgba(255,255,255,0.07);
+  --accent: #00D4FF;
+  --accent2: #7B61FF;
+  --accent3: #00FF94;
+  --gold: #FFD166;
+  --text: #E8EDF5;
+  --muted: #6B7A99;
+  --r: 12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* GRID BACKGROUND */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 60px 24px 80px; position: relative; z-index: 1; }
+
+/* BREADCRUMB */
+.breadcrumb {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.breadcrumb span { color: var(--accent); }
+
+/* HERO */
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,255,148,0.08);
+  border: 1px solid rgba(0,255,148,0.25);
+  border-radius: 60px;
+  padding: 6px 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent3);
+  margin-bottom: 20px;
+}
+.hero-tag::before { content: '●'; font-size: 0.5rem; animation: pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+h1 em { font-style: normal; color: var(--accent); }
+
+.hero-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 600px;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+/* STAT ROW */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 56px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.stat {
+  background: var(--surface);
+  padding: 24px 20px;
+  text-align: center;
+}
+.stat-val {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-val.green { color: var(--accent3); }
+.stat-val.gold  { color: var(--gold); }
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* SECTION HEADERS */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  margin-top: 52px;
+}
+.section-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--accent2);
+  background: rgba(123,97,255,0.1);
+  border: 1px solid rgba(123,97,255,0.25);
+  border-radius: 6px;
+  padding: 4px 8px;
+  letter-spacing: 0.06em;
+}
+h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* PIPELINE FLOW */
+.pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  margin: 24px 0;
+}
+.pipe-node {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  position: relative;
+}
+.pipe-node .icon { font-size: 1rem; margin-right: 6px; }
+.pipe-node.active { border-color: rgba(0,212,255,0.4); background: rgba(0,212,255,0.06); color: var(--accent); }
+.pipe-arrow {
+  color: var(--muted);
+  font-size: 1rem;
+  padding: 0 6px;
+}
+
+/* CHECKLIST */
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.check {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: rgba(0,255,148,0.15);
+  border: 1px solid rgba(0,255,148,0.4);
+  color: var(--accent3);
+  font-size: 0.65rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* CODE BLOCK */
+.code-block {
+  background: #0d1117;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent2);
+  border-radius: var(--r);
+  padding: 20px 22px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: #a8c0d6;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+.code-block .k { color: var(--accent2); }
+.code-block .s { color: var(--accent3); }
+.code-block .c { color: #4a6070; font-style: italic; }
+
+/* FIELD TABLE */
+.field-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.83rem;
+}
+.field-table th {
+  text-align: left;
+  padding: 10px 14px;
+  background: var(--surface2);
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.field-table th:first-child { border-radius: 8px 0 0 0; }
+.field-table th:last-child { border-radius: 0 8px 0 0; }
+.field-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+}
+.field-table td:first-child { color: var(--gold); }
+.field-table td:last-child { color: var(--accent3); }
+.field-table tr:last-child td { border-bottom: none; }
+
+/* REPLICATION CARD */
+.replication-card {
+  background: linear-gradient(135deg, rgba(123,97,255,0.08), rgba(0,212,255,0.06));
+  border: 1px solid rgba(123,97,255,0.25);
+  border-radius: var(--r);
+  padding: 28px;
+  margin-top: 52px;
+}
+.replication-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--accent2);
+}
+.replication-card p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.niche-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px;
+}
+.niche-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* PRICING BOX */
+.pricing-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin: 20px 0;
+}
+.price-cell {
+  background: var(--surface);
+  padding: 20px;
+}
+.price-cell .label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+.price-cell .val { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; }
+.price-cell .val.green { color: var(--accent3); }
+.price-cell .val.gold  { color: var(--gold); }
+.price-cell .note { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+/* CTA */
+.cta-bar {
+  margin-top: 52px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.cta-bar h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+.cta-bar p { font-size: 0.83rem; color: var(--muted); }
+.cta-btn {
+  white-space: nowrap;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.cta-btn:hover { background: #33deff; transform: translateY(-1px); }
+
+p.body { font-size: 0.9rem; line-height: 1.7; color: #b0bdd6; margin: 14px 0; }
+
+@media (max-width: 560px) {
+  .stats { grid-template-columns: 1fr; }
+  .pricing-box { grid-template-columns: 1fr; }
+  .pipeline { gap: 6px; }
+  .pipe-arrow { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    AI Automation Mastery Course <span>›</span> Bonus Modules <span>›</span> Real Client Builds
+  </div>
+
+  <!-- Hero -->
+  <div class="hero-tag">● Live Case Study — April 2026</div>
+  <h1>How I Built a <em>Full Booking Pipeline</em> for a Cleaning Business in One Day</h1>
+  <p class="hero-sub">From zero to webhook → CRM → SMS → owner alert — all automated, all free of manual steps. Here's every decision, every tool, and exactly how to replicate it.</p>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-val">1</div>
+      <div class="stat-label">Day to build</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val green">10</div>
+      <div class="stat-label">Fields automated</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val gold">$0</div>
+      <div class="stat-label">Extra tools needed</div>
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>The Client & The Problem</h2>
+  </div>
+  <p class="body">Swan Shine Cleaning Services is a local cleaning company in San Antonio, TX. Like most service businesses their size, they were handling booking requests manually — phone calls, DMs, back-and-forth texts. Every lead required a human to respond, qualify, and schedule. That's time the owner doesn't have.</p>
+  <p class="body">The goal: build a form that captures a lead, creates them in the CRM, sends them an instant SMS confirmation, and alerts the owner — with zero manual steps between submission and follow-up.</p>
+
+  <!-- Section 2 — Pipeline -->
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>The Full Pipeline</h2>
+  </div>
+  <div class="pipeline">
+    <div class="pipe-node active"><span class="icon">📋</span>Booking Form</div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node active"><span class="icon">🔗</span>GHL Webhook</div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node"><span class="icon">👤</span>Create Contact</div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node"><span class="icon">💬</span>SMS to Lead</div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node"><span class="icon">🔔</span>Owner Alert</div>
+  </div>
+  <p class="body">Every step is automated. A lead submits the form → GHL workflow fires instantly → contact is created, SMS is sent, owner is notified. The owner wakes up to a clean email with all 10 fields, and the lead already got a confirmation text.</p>
+
+  <!-- Section 3 — What Was Built -->
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>What Was Actually Built</h2>
+  </div>
+  <ul class="checklist">
+    <li><span class="check">✓</span><div><strong>Custom booking modal</strong> — Slick HTML/CSS/JS form with live estimate previews based on service type. No third-party form tools needed.</div></li>
+    <li><span class="check">✓</span><div><strong>GHL Inbound Webhook trigger</strong> — Created a new workflow from scratch, set trigger to Inbound Webhook, captured sample payload for field mapping reference.</div></li>
+    <li><span class="check">✓</span><div><strong>Create/Update Contact action</strong> — All 5 standard GHL contact fields mapped using <code>{{inboundWebhookRequest.queryParams.*}}</code> variables (not <code>{{contact.*}}</code> — that's the #1 mistake people make).</div></li>
+    <li><span class="check">✓</span><div><strong>SMS confirmation to lead</strong> — Fires to the lead's phone the instant the form is submitted. Uses webhook payload variables so it populates correctly even before the contact is fully created.</div></li>
+    <li><span class="check">✓</span><div><strong>Internal notification email</strong> — All 10 fields, clean individual lines, sent to all account users. No missed leads.</div></li>
+  </ul>
+
+  <!-- Section 4 — The Field Mapping Fix -->
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>The Critical Mapping Fix (Don't Skip This)</h2>
+  </div>
+  <p class="body">GHL will default to suggesting <code>{{contact.*}}</code> variables when you build actions. <strong>This is wrong for webhook-triggered workflows.</strong> The contact doesn't exist yet when the SMS fires — so those variables return blank.</p>
+  <p class="body">Always use <code>{{inboundWebhookRequest.queryParams.*}}</code> for any data that came in through the webhook. Here's the correct mapping:</p>
+
+  <table class="field-table">
+    <thead>
+      <tr>
+        <th>GHL Field</th>
+        <th>Wrong Variable</th>
+        <th>Correct Variable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>first_name</td><td>{{contact.first_name}}</td><td>{{inboundWebhookRequest.queryParams.first_name}}</td></tr>
+      <tr><td>last_name</td><td>{{contact.last_name}}</td><td>{{inboundWebhookRequest.queryParams.last_name}}</td></tr>
+      <tr><td>phone</td><td>{{contact.phone}}</td><td>{{inboundWebhookRequest.queryParams.phone}}</td></tr>
+      <tr><td>email</td><td>{{contact.email}}</td><td>{{inboundWebhookRequest.queryParams.email}}</td></tr>
+      <tr><td>address</td><td>{{contact.address1}}</td><td>{{inboundWebhookRequest.queryParams.address}}</td></tr>
+      <tr><td>service_type</td><td>{{contact.service_type}}</td><td>{{inboundWebhookRequest.queryParams.service_type}}</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Section 5 — The Webhook Payload -->
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>The Webhook Payload</h2>
+  </div>
+  <p class="body">The form POSTs a JSON body with all 10 fields. GHL receives this at the Inbound Webhook URL and makes every field available as a <code>queryParams</code> variable:</p>
+  <div class="code-block">
+<span class="c">// Form submits this JSON to GHL webhook</span>
+{
+  <span class="k">"first_name"</span>:     <span class="s">"Maria"</span>,
+  <span class="k">"last_name"</span>:      <span class="s">"Garcia"</span>,
+  <span class="k">"phone"</span>:          <span class="s">"(210) 555-0000"</span>,
+  <span class="k">"email"</span>:          <span class="s">"maria@email.com"</span>,
+  <span class="k">"address"</span>:        <span class="s">"1234 Elm St, San Antonio TX"</span>,
+  <span class="k">"service_type"</span>:   <span class="s">"Deep Clean"</span>,
+  <span class="k">"preferred_date"</span>: <span class="s">"2026-04-28"</span>,
+  <span class="k">"preferred_time"</span>: <span class="s">"Morning (8am–12pm)"</span>,
+  <span class="k">"estimate"</span>:       <span class="s">"$200 – $300"</span>,
+  <span class="k">"notes"</span>:          <span class="s">"3 bed / 2 bath, no pets"</span>
+}
+  </div>
+
+  <!-- Section 6 — Replication -->
+  <div class="replication-card">
+    <h3>🔁 This Works for Any Service Business</h3>
+    <p>The entire stack is service-type agnostic. Swap the form fields and SMS copy and you have the same pipeline for any of these niches:</p>
+    <div class="niche-grid">
+      <div class="niche-pill">🌳 Tree Care</div>
+      <div class="niche-pill">🏡 Landscaping</div>
+      <div class="niche-pill">🔧 HVAC</div>
+      <div class="niche-pill">🚿 Pressure Washing</div>
+      <div class="niche-pill">🐛 Pest Control</div>
+      <div class="niche-pill">🏗️ Contractors</div>
+      <div class="niche-pill">🚗 Auto Detailing</div>
+      <div class="niche-pill">🐾 Pet Services</div>
+    </div>
+  </div>
+
+  <!-- Section 7 — What to Charge -->
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2>What to Charge for This</h2>
+  </div>
+  <p class="body">This is a productized deliverable. You can sell it as a standalone or bundle it into a larger retainer. Here's how to price it:</p>
+  <div class="pricing-box">
+    <div class="price-cell">
+      <div class="label">Standalone Build</div>
+      <div class="val gold">$1,500</div>
+      <div class="note">Form + webhook + 3 GHL actions + 1 revision</div>
+    </div>
+    <div class="price-cell">
+      <div class="label">With Custom Form Design</div>
+      <div class="val gold">$2,500</div>
+      <div class="note">Branded modal + full pipeline + embed on their site</div>
+    </div>
+    <div class="price-cell">
+      <div class="label">Monthly Maintenance</div>
+      <div class="val green">$300</div>
+      <div class="note">/mo — updates, new services, support</div>
+    </div>
+    <div class="price-cell">
+      <div class="label">Bundled Retainer</div>
+      <div class="val green">$750+</div>
+      <div class="note">/mo — full GHL management + automations</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-bar">
+    <div>
+      <h3>Build This for Your First Client</h3>
+      <p>Module 4 walks through the full build step-by-step with screen recordings.</p>
+    </div>
+    <button class="cta-btn" onclick="alert('Module 4 coming soon!')">Start Module 4 →</button>
+  </div>
+
+</div>
+</body>
+</html>

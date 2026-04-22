@@ -1,4 +1,4 @@
-# AI Automation Mastery Course
+﻿# AI Automation Mastery Course
 ## Complete Course Guide (Placeholder v1.0)
 
 **Course:** AI Automation Mastery  
@@ -14,11 +14,11 @@
 Congratulations on taking the first step toward automating 80% of your business tasks! This course will guide you through building your own AI Business Twin system.
 
 ### What You'll Achieve:
-- ✅ Automate repetitive business processes
-- ✅ Save 10+ hours per week
-- ✅ Generate automated revenue streams
-- ✅ Build scalable automation systems
-- ✅ Join a community of automation experts
+- âœ… Automate repetitive business processes
+- âœ… Save 10+ hours per week
+- âœ… Generate automated revenue streams
+- âœ… Build scalable automation systems
+- âœ… Join a community of automation experts
 
 ### Course Structure:
 - **6 Modules** (step-by-step progression)
@@ -229,6 +229,7 @@ Congratulations on taking the first step toward automating 80% of your business 
 - Module 5: Testing Methodologies (8 min)
 - Module 6: Scaling Framework (10 min)
 - Bonus: Advanced Automation Techniques (12 min)
+- Bonus: Swan Shine Case Study (HTML): [bonus-swan-shine.html](bonus-swan-shine.html)
 
 ### Community Access:
 - **Discord:** Private community for students
@@ -336,7 +337,7 @@ Congratulations on taking the first step toward automating 80% of your business 
 
 ## Legal & Compliance
 
-**Copyright:** © 2026 AI Business Twin. All rights reserved.  
+**Copyright:** Â© 2026 AI Business Twin. All rights reserved.  
 **License:** Single-user license for course materials.  
 **Refund Policy:** 30-day money-back guarantee.  
 **Privacy Policy:** We don't share your data with third parties.  
@@ -352,3 +353,4 @@ Congratulations on taking the first step toward automating 80% of your business 
 ---
 
 *"The best time to automate was yesterday. The second best time is today."*
+
