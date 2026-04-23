@@ -15,7 +15,7 @@
 **Product:** Pro Implementation Package
 
 ### 3. Agency Partnership ($197/month)
-**URL:** `https://buy.stripe.com/3cI8wRdyFbMw4Sy7pl3Ru0j`
+**URL:** `https://buy.stripe.com/3cI5kFfGN7wg84K2513Ru0k`
 **Status:** ⚠️ Needs testing
 **Type:** Recurring monthly subscription
 **Product:** Agency Partnership Subscription
